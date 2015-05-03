@@ -9,7 +9,7 @@
 		</style>
 		<script type="text/javascript">
 $(function () {
-    $.getJSON('http://dev-mv-api.azurewebsites.net/api/v1/basic', function (data) {
+    $.getJSON('http://dev-mv-api.azurewebsites.net/api/v1/basic?callback=?', function (data) {
     $('#container').highcharts({
         title: {
             text: 'Gold USD',
@@ -49,6 +49,8 @@ $(function () {
 </script>
 	</head>
 	<body>
+        <script src="js/highcharts.js"></script>
+        <script src=js/modules/exporting.js"></script>
         <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 	</body>
 </html>
