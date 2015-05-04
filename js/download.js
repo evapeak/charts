@@ -1,7 +1,11 @@
 $.ajax({
     url: "http://dev-mv-api.azurewebsites.net/api/v1/basic?callback=?",
+    type: "GET",
     dataType: 'json',
     crossDomain: true,
+    fail: function(data) {
+        alert(data);
+    },
     success: function (data) {
         $('#container').highcharts({
             title: {
@@ -72,4 +76,4 @@ $.ajax({
                 borderWidth: 0
             },
             series: data
-        });
+        }));
