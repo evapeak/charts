@@ -1,12 +1,12 @@
 $.ajax({
     url: "http://dev-mv-api.azurewebsites.net/api/v1/basic?callback=?",
     type: "GET",
-    dataType: 'jsonp',
+    dataType: 'json',
     crossDomain: true,
     fail: function (data) {
         alert(data);
     },
-    success: function (data) {
+    complete: function (data) {
         $('#container').highcharts({
             title: {
                 text: 'Gold USD',
