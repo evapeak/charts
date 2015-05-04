@@ -76,4 +76,4 @@ $.ajax({
                 borderWidth: 0
             },
             series: data
-        }));
+        })});
