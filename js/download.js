@@ -3,9 +3,6 @@ $.ajax({
     type: "GET",
     dataType: 'json',
     crossDomain: true,
-    fail: function (data) {
-        alert(data);
-    },
     complete: function (data) {
         $('#container').highcharts({
             title: {
