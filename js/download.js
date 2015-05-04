@@ -3,7 +3,7 @@ $.ajax({
     type: "GET",
     dataType: 'jsonp',
     crossDomain: true,
-    fail: function(data) {
+    fail: function (data) {
         alert(data);
     },
     success: function (data) {
