@@ -15,6 +15,12 @@
                 type: "GET",
                 dataType: 'json',
                 crossDomain: true,
+                success: function(data) {
+                    alert(data);
+                  },
+                  error: function() {
+                    alert('Error';
+                  }
                 complete: function (data) {
                     $('#container').highcharts({
                         title: {
