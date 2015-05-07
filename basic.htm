@@ -18,8 +18,8 @@
                 success: function(data) {
                     alert(data);
                   },
-                  error: function() {
-                    alert('Error');
+                  error: function(data) {
+                    alert('Error' + data);
                   },
                 complete: function (data) {
                     $('#container').highcharts({
