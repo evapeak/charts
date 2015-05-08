@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -8,8 +8,8 @@
             ${demo.css}
 		</style>
         <script type="text/javascript">
-            $(function () {
-                $.getJSON('../api/v1/timeseries', function (response) {
+            $(document).ready(function() {
+                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/timeseries', function (response) {
                     $('#container').highcharts({
                         chart: {
                             zoomType: 'x'

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -8,10 +8,10 @@
             ${demo.css}
 		</style>
 		<script type="text/javascript">
-            $(function () {
+            $(document).ready(function() {
                 var milliseconds = Math.floor(Date.now() / 1000);
                 var from = milliseconds - 2592000;
-                $.getJSON('../api/v1/stock?currencyId=2&commodityId=2&from=' + from + '&to=' + milliseconds, function (response) {
+                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/stock?currencyId=2&commodityId=2&from=' + from + '&to=' + milliseconds, function (response) {
 
                     // create the chart
                     $('#container').highcharts('StockChart', {

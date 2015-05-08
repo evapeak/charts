@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -8,10 +8,10 @@
             ${demo.css}
 		</style>
         <script type="text/javascript">
-            $(function () {
+            $(document).ready(function() {
                 var to = Math.floor(Date.now() / 1000);
                 var from = to - 2592000; //1 week in seconds
-                $.getJSON('../api/v1/bitcoin?from=' + from + '&to=' + to, function (response) {
+                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/bitcoin?from=' + from + '&to=' + to, function (response) {
                     $('#container').highcharts({
                         chart: {
                             zoomType: 'x'
