@@ -1,0 +1,61 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Candle Stick Example</title>
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<style type="text/css">
+            ${demo.css}
+		</style>
+		<script type="text/javascript">
+            $(function () {
+                var milliseconds = Math.floor(Date.now() / 1000);
+                var from = milliseconds - 2592000;
+                $.getJSON('../api/v1/candlestick?currencyId=1&commodityId=1&from=' + from + '&to=' + milliseconds, function (response) {
+
+                    // create the chart
+                    $('#container').highcharts('StockChart', {
+
+                        rangeSelector : {
+                            selected : 1
+                        },
+
+                        title : {
+                            text : response.Title
+                        },
+
+                        //plotOptions: {
+                        //    series: {
+                        //        pointStart: response.PointStart,
+                        //        pointIntervalUnit: 'hour'
+                        //    }
+                        //},
+
+                        series : [{
+                            type: response.Type,
+                            name : response.Series[0].Title,
+                            data: response.Series[0].RawData,
+                            dataGrouping : {
+                                units : [
+                                    [
+                                        'week', // unit name
+                                        [1] // allowed multiples
+                                    ], [
+                                        'month',
+                                        [1, 2, 3, 4, 6]
+                                    ]
+                                ]
+                            }
+                        }]
+                    });
+                });
+            });
+		</script>
+	</head>
+	<body>
+        <script type="text/javascript" src="../js/highstock.js"></script>
+        <script type="text/javascript" src="../js/modules/exporting.js"></script>
+        <div id="container" style="height: 400px; min-width: 310px"></div>
+	</body>
+</html>
