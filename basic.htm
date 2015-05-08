@@ -12,60 +12,42 @@
     <script type="text/javascript">
 
         $(document).ready(function() {
-            var fnsuccesscallback = function(data) {
-                $('#container').highcharts({
-                    title: {
-                        text: 'Gold USD',
-                        x: -20 //center
-                    },
-                    subtitle: {
-                        text: 'Source: BullionMark.com',
-                        x: -20
-                    },
-                    xAxis: {
-                        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                    },
-                    yAxis: {
-                        title: {
-                            text: '$'
-                        },
-                        plotLines: [{
-                            value: 0,
-                            width: 1,
-                            color: '#808080'
-                        }]
-                    },
-                    tooltip: {
-                        valueSuffix: '°C'
-                    },
-                    legend: {
-                        layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'middle',
-                        borderWidth: 0
-                    },
-                    series: data
-                });
-            };
-
-            $.ajax({
-                url: 'https://dev-mv-api.azurewebsites.net/api/v1/basic',
-                type: "GET",
-                crossDomain: true,
-                contentType: "application/json; charset=utf-8;",
-                async: false,
-                data: {},
-                dataType: 'jsonp',
-                jsonpCallback: 'fnsuccesscallback',
-                jsonp: 'callback',
-                success: function(data){
-                    console.log('callback success');
-                },
-                error: function(xhr, status, error) {
-                    console.log(status + '; ' + error);
-                }
-            });
+            $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/basic', function (data) {
+				$('#container').highcharts({
+					title: {
+						text: 'Gold USD',
+						x: -20 //center
+					},
+					subtitle: {
+						text: 'Source: BullionMark.com',
+						x: -20
+					},
+					xAxis: {
+						categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+							'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+					},
+					yAxis: {
+						title: {
+							text: '$'
+						},
+						plotLines: [{
+							value: 0,
+							width: 1,
+							color: '#808080'
+						}]
+					},
+					tooltip: {
+						valueSuffix: '°C'
+					},
+					legend: {
+						layout: 'vertical',
+						align: 'right',
+						verticalAlign: 'middle',
+						borderWidth: 0
+					},
+					series: data
+				});
+			});
 
         });
 
