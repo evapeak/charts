@@ -25,7 +25,8 @@
                 $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/bitcoin?from=' + from + '&to=' + to, function (response) {
                     $('#container').highcharts({
                         chart: {
-                            zoomType: 'x'
+                            zoomType: 'x',
+                            height: 800
                         },
                         title: {
                             text: response.Title
