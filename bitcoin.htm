@@ -16,6 +16,8 @@
 		<style type="text/css">
             ${demo.css}
 		</style>
+        <script src="/js/highcharts.js"></script>
+        <script src="/js/modules/exporting.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 var to = Math.floor(Date.now() / 1000);
@@ -30,8 +32,8 @@
                         },
                         subtitle: {
                             text: document.ontouchstart === undefined ?
-                                    'Click and drag in the plot area to zoom in' :
-                                    'Pinch the chart to zoom in'
+                                    '' :
+                                    ''
                         },
                         xAxis: {
                             type: 'datetime'//,
@@ -79,8 +81,6 @@
         </script>
 	</head>
 	<body>
-        <script src="../js/highcharts.js"></script>
-        <script src="../js/modules/exporting.js"></script>
         <div class="container-fluid" id="container"></div>
 	</body>
 </html>
