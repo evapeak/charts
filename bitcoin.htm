@@ -21,7 +21,8 @@
         <script type="text/javascript">
             $(document).ready(
 
-                function LoadChart()
+                    setInterval(
+                function()
                 {
                     var to = Math.floor(Date.now() / 1000);
                     var from = to - 2592000; //1 week in seconds
@@ -82,10 +83,8 @@
 
                         });
                     });
-             });
+             }, 5000));
 
-                setInterval(LoadChart, 5000);
-                LoadChart();
         </script>
 	</head>
 	<body>
