@@ -154,7 +154,7 @@
 
                         var jsonResponse;
 
-                        $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/bitcoin?from=' + from + '&to=' + to, function(json){
+                        $.getJSON("https://dev-mv-api.azurewebsites.net/api/v1/bitcoin?from=" + from + "&to=" + to, function(json){
                             jsonResponse = json;
 
                             RenderChart(jsonResponse);
