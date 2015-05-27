@@ -73,7 +73,7 @@
                             //pointIntervalUnit: 'minute'
                         }
                     },
-                    series: response.Series
+                    series: data.Series
 
                 });
             }
@@ -140,8 +140,9 @@
             };
 
             $(document).ready(
+
                     //Begin when page is ready
-                    function Start()
+                    function ()
                     {
                         var from = Math.floor(Date.now() / 1000) - 7 * 24 * 60 * 60; //1 week in seconds
                         var to = Math.floor(Date.now() / 1000);
