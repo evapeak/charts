@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b5e1d415-bea3-40bf-b769-296e2ac12d2c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitcoin.htm" afterPath="$PROJECT_DIR$/bitcoin.htm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="charts.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -41,8 +40,8 @@
       <file leaf-file-name="bitcoin.htm" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bitcoin.htm">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.86799276" vertical-offset="315" max-vertical-offset="1485">
-              <caret line="85" column="22" selection-start-line="85" selection-start-column="22" selection-end-line="85" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.91862565" vertical-offset="229" max-vertical-offset="1530">
+              <caret line="83" column="45" selection-start-line="83" selection-start-column="45" selection-end-line="83" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -211,8 +210,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bitcoin.htm">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.86799276" vertical-offset="315" max-vertical-offset="1485">
-          <caret line="85" column="22" selection-start-line="85" selection-start-column="22" selection-end-line="85" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.91862565" vertical-offset="229" max-vertical-offset="1530">
+          <caret line="83" column="45" selection-start-line="83" selection-start-column="45" selection-end-line="83" selection-end-column="45" />
           <folding />
         </state>
       </provider>

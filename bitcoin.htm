@@ -21,11 +21,12 @@
         <script type="text/javascript">
             $(document).ready(
 
+
                     setInterval(
                 function()
                 {
                     var to = Math.floor(Date.now() / 1000);
-                    var from = to - 2592000; //1 week in seconds
+                    var from = to - 3600; //1 week in seconds
                     $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/bitcoin?from=' + from + '&to=' + to, function (response) {
                         $('#container').highcharts({
                             chart: {
@@ -79,7 +80,9 @@
                                     //pointIntervalUnit: 'minute'
                                 }
                             },
-                            series: response.Series
+                            series: [{
+                                name : 'btc',
+                                data: response.Series[0].data.push() }]
 
                         });
                     });
