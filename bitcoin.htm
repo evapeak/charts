@@ -26,7 +26,7 @@
                     $('#container').highcharts({
                         chart: {
                             zoomType: 'x',
-                            height: 800
+                            height: 100
                         },
                         title: {
                             text: response.Title
@@ -70,7 +70,8 @@
                                 threshold: null
                             },
                             series: {
-                                pointStart: response.PointStart //,
+                                pointStart: response.PointStart,
+                                pointInterval: 3600 * 1000 //,
                                 //pointIntervalUnit: 'minute'
                             }
                         },
