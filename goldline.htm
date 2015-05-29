@@ -34,7 +34,7 @@
                     },
                     xAxis: {
                         type: 'datetime',
-                        minRange: 7 * 24 * 3600000 // 7 days
+                        minRange: 24 * 3600000 // 1 day
                     },
                     yAxis: {
                         title: {
@@ -80,7 +80,8 @@
                 //Begin when page is ready
                 function ()
                 {
-                    var from = Math.floor(Date.now() / 1000) - 7 * 24 * 60 * 60; //1 week in seconds
+                    //API takes seconds
+                    var from = Math.floor(Date.now() / 1000) - 14 * 24 * 60 * 60; //2 weeks in seconds
                     var to = Math.floor(Date.now() / 1000);
 
                     var jsonResponse;
