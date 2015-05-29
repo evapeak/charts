@@ -26,7 +26,7 @@
             zoomType: 'x'
         },
         title: {
-            text: 'Gold AUD'
+            text: 'Gold USD'
         },
         subtitle: {
             text: document.ontouchstart === undefined ?
@@ -73,76 +73,8 @@
             pointInterval: 3600 * 1000,
             pointStart: Date.UTC(2015, 5, 15),
             data: data.Series[0].Points
-            
-//            [
-//                0.8446, 0.8445, 0.8444, 0.8451,    0.8418, 0.8264,    0.8258, 0.8232,    0.8233, 0.8258,
-//                0.8283, 0.8278, 0.8256, 0.8292,    0.8239, 0.8239,    0.8245, 0.8265,    0.8261, 0.8269,
-//                0.8273, 0.8244, 0.8244, 0.8172,    0.8139, 0.8146,    0.8164, 0.82,    0.8269, 0.8269
-//            ]
-        }]
-    });
-            }
-
-            function Load(to, from)
-            {
-                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/bitcoin?from=' + from + '&to=' + to, function (response) {
-                    $('#container').highcharts({
-                        chart: {
-                            zoomType: 'x',
-                            height: 800
-                        },
-                        title: {
-                            text: response.Title
-                        },
-                        subtitle: {
-                            text: document.ontouchstart === undefined ?
-                                    '' :
-                                    ''
-                        },
-                        xAxis: {
-                            type: 'datetime'//,
-                            //minRange: 3600000 //14 * 24 * 3600000 // fourteen days
-                        },
-                        yAxis: {
-                            title: {
-                                text: 'Exchange rate'
-                            },
-                            type: 'linear'
-                        },
-                        legend: {
-                            enabled: false
-                        },
-                        plotOptions: {
-                            area: {
-                                fillColor: {
-                                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                                    stops: [
-                                        [0, Highcharts.getOptions().colors[0]],
-                                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                                    ]
-                                },
-                                marker: {
-                                    radius: 2
-                                },
-                                lineWidth: 1,
-                                states: {
-                                    hover: {
-                                        lineWidth: 1
-                                    }
-                                },
-                                threshold: null
-                            },
-                            series: {
-                                pointStart: response.PointStart,
-                                pointInterval: 3600 * 1000 //,
-                                //pointIntervalUnit: 'minute'
-                            }
-                        },
-                        series: response.Series
-
-                    });
-                });
-            };
+        });
+        }
 
             $(document).ready(
 
@@ -151,9 +83,6 @@
                 {
                     var from = Math.floor(Date.now() / 1000) - 7 * 24 * 60 * 60; //1 week in seconds
                     var to = Math.floor(Date.now() / 1000);
-
-                    //First load
-                    //Load(to, from);
 
                     var jsonResponse;
 
