@@ -12,14 +12,13 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 
         <!-- Latest compiled and minified JavaScript -->
-        <script src="/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<style type="text/css">
             ${demo.css}
 		</style>
         <script type="text/javascript" src="/js/highcharts.js"></script>
         <script type="text/javascript" src="/js/modules/exporting.js"></script>
         <script type="text/javascript">
-
             function RenderChart (data) {
                 $('#container').highcharts({
                     chart: {
@@ -73,7 +72,10 @@
                             //pointIntervalUnit: 'minute'
                         }
                     },
-                    series: data.Series
+                    series: [{
+                        name: 'Gold',
+                        data: data.Series[0].StockSeries[0].RawData
+                    }]
 
                 });
             }
@@ -141,22 +143,22 @@
 
             $(document).ready(
 
-                    //Begin when page is ready
-                    function ()
-                    {
-                        var from = Math.floor(Date.now() / 1000) - 7 * 24 * 60 * 60; //1 week in seconds
-                        var to = Math.floor(Date.now() / 1000);
+                //Begin when page is ready
+                function ()
+                {
+                    var from = Math.floor(Date.now() / 1000) - 7 * 24 * 60 * 60; //1 week in seconds
+                    var to = Math.floor(Date.now() / 1000);
 
-                        //First load
-                        //Load(to, from);
+                    //First load
+                    //Load(to, from);
 
-                        var jsonResponse;
+                    var jsonResponse;
 
-                        $.getJSON("https://dev-mv-api.azurewebsites.net/api/v1/bitcoin?from=" + from + "&to=" + to, function(json){
-                            jsonResponse = json;
+                    $.getJSON("https://dev-mv-api.azurewebsites.net/api/v1/bitcoin?from=" + from + "&to=" + to, function(json){
+                        jsonResponse = json;
 
-                            RenderChart(jsonResponse);
-                        });
+                        RenderChart(jsonResponse);
+                    });
 
 //                        setInterval(
 //                                function () {
