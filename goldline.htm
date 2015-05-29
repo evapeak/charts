@@ -70,8 +70,8 @@
         series: [{
             type: 'area',
             name: data.Series[0].name,
-            pointInterval: 24 * 3600 * 1000,
-            pointStart: Date.UTC(2006, 0, 1),
+            pointInterval: 3600 * 1000,
+            pointStart: Date.UTC(2015, 5, 15),
             data: data.Series[0].Points
             
 //            [
@@ -157,7 +157,7 @@
 
                     var jsonResponse;
 
-                    $.getJSON("https://dev-mv-api.azurewebsites.net/api/v1/bitcoin?from=" + from + "&to=" + to, function(json){
+                    $.getJSON("https://dev-mv-api.azurewebsites.net/api/v1/stock?currencyid=1&commodityid=1&from=" + from + "&to=" + to, function(json){
                         jsonResponse = json;
 
                         RenderChart(jsonResponse);
