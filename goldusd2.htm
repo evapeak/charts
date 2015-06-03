@@ -70,8 +70,8 @@
                         type: 'area',
                         name: 'Gold USD', //data.Series[0].name,
                         pointInterval: 5 * 60 * 1000, //5 mins
-                        pointStart: data.PointStart, //Date.UTC(2015, 5, 15),
-                        data: data.Series[0].Points
+                        pointStart: Math.floor(Date.now() / 1000) - 14 * 24 * 60 * 60, //Date.UTC(2015, 5, 15),
+                        data: data
                     }]
                     });
                  }
@@ -86,7 +86,7 @@
 
                     var jsonResponse;
 
-                    $.getJSON("https://dev-mv-api.azurewebsites.net/api/v1/stock?currencyid=1&commodityid=1&from=" + from + "&to=" + to, function(json){
+                    $.getJSON("https://dev-mv-api.azurewebsites.net/api/v1/rawdata?currencyid=1&commodityid=1&from=" + from + "&to=" + to, function(json){
                         jsonResponse = json;
 
                         RenderChart(jsonResponse);
