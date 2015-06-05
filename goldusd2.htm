@@ -86,7 +86,7 @@
 
                     var jsonResponse;
 
-                    $.getJSON("https://dev-mv-api.azurewebsites.net/api/v1/rawdata?currencyid=1&commodityid=1&from=" + from + "&to=" + to, function(json){
+                    $.getJSON("https://dev-mv-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyid=1&commodityid=1&from=" + from + "&to=" + to, function(json){
                         jsonResponse = json;
 
                         RenderChart(jsonResponse);
