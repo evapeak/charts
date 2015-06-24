@@ -11,7 +11,7 @@
             $(document).ready(function() {
                 var milliseconds = Math.floor(Date.now() / 1000);
                 var from = milliseconds - 2592000;
-                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/stock?currencyId=2&commodityId=2&from=' + from + '&to=' + milliseconds, function (response) {
+                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=2&from=' + from + '&to=' + milliseconds, function (response) {
 
                     // create the chart
                     $('#container').highcharts('StockChart', {
@@ -21,7 +21,7 @@
                         },
 
                         title : {
-                            text : response.Title
+                            text : 'Silver'//response.Title
                         },
 
                         //plotOptions: {
@@ -30,11 +30,13 @@
                         //        pointIntervalUnit: 'hour'
                         //    }
                         //},
-
+                        yAxis: {
+                                    tickInterval: 3600 * 1000
+                                },
                         series : [{
                             type: 'area',
-                            name : response.Series[0].Title,
-                            data: response.Series[0].RawData,
+                            name : 'Silver AUD', //response.Series[0].Title,
+                            data: response, //.Series[0].RawData,
                             gapSize: 5,
                             tooltip: {
                                 valueDecimals: 2
