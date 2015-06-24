@@ -18,11 +18,11 @@
 		<style type="text/css">
             ${demo.css}
 		</style>
-		<script type="text/javascript">
+        <script type="text/javascript">
             $(document).ready(function() {
                 var milliseconds = Math.floor(Date.now() / 1000);
                 var from = milliseconds - 2592000;
-                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/stock?currencyId=1&commodityId=1&from=' + from + '&to=' + milliseconds, function (response) {
+                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/stock?currencyId=2&commodityId=1&from=' + from + '&to=' + milliseconds, function (response) {
 
                     // create the chart
                     $('#container').highcharts('StockChart', {
@@ -46,7 +46,7 @@
                             type: 'area',
                             name : response.Series[0].Title,
                             data: response.Series[0].RawData,
-                            //gapSize: 5,
+                            gapSize: 5,
                             tooltip: {
                                 valueDecimals: 2
                             },
