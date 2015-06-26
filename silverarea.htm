@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Bullion Mark Silver</title>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
 		<style type="text/css">
             ${demo.css}
 		</style>
@@ -11,7 +11,7 @@
             $(document).ready(function() {
                 var milliseconds = Math.floor(Date.now() / 1000);
                 var from = milliseconds - 2592000;
-                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=2&from=' + from + '&to=' + milliseconds, function (response) {
+                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/stock?seriestype=askhigh&currencyId=2&commodityId=2&from=' + from + '&to=' + milliseconds, function (response) {
 
                     // create the chart
                     $('#container').highcharts('StockChart', {
@@ -58,8 +58,8 @@
 		</script>
 	</head>
 	<body style="background-color: #343434">
-        <script type="text/javascript" src="../js/highstock.js"></script>
-        <script type="text/javascript" src="../js/modules/exporting.js"></script>
+        <script type="text/javascript" src="/js/highstock.js"></script>
+        <script type="text/javascript" src="/js/modules/exporting.js"></script>
         <script src="/js/themes/dark-unica-silver.js"></script>
         <div id="container" style="min-height: 1024px; min-width: 310px"></div>
 	</body>
