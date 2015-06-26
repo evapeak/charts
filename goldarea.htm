@@ -3,16 +3,17 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Bullion Mark Gold</title>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
         
         <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
 
         <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
 
         <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/js/highcharts.js"></script>
         <script type="text/javascript" src="/js/modules/exporting.js"></script>
 		<style type="text/css">
@@ -22,7 +23,7 @@
             $(document).ready(function() {
                 var milliseconds = Math.floor(Date.now() / 1000);
                 var from = milliseconds - 2592000;
-                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=1&from=' + from + '&to=' + milliseconds, function (response) {
+                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/stock?seriestype=askhigh&currencyId=2&commodityId=1&from=' + from + '&to=' + milliseconds, function (response) {
 
                     // create the chart
                     $('#container').highcharts('StockChart', {
