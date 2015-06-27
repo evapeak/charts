@@ -4,6 +4,9 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Bullion Mark Silver</title>
         <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="/js/highstock.js"></script>
+        <script type="text/javascript" src="/js/modules/exporting.js"></script>
+        <script src="/js/themes/dark-unica-silver.js"></script>
 		<style type="text/css">
             ${demo.css}
 		</style>
@@ -12,12 +15,42 @@
                 var milliseconds = Math.floor(Date.now() / 1000);
                 var from = milliseconds - 2592000;
                 $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/stock?seriestype=askhigh&currencyId=2&commodityId=2&from=' + from + '&to=' + milliseconds, function (response) {
-
+                //$.getJSON("silverarea.json", function (response) {
                     // create the chart
                     $('#container').highcharts('StockChart', {
 
-                        rangeSelector : {
-                            selected : 1
+                        chart : {
+                            events : {
+                                load : function () {
+
+                                    // set up the updating of the chart each second
+                                    var series = this.series[0];
+                                    setInterval(function () {
+                                        var x = (new Date()).getTime(), // current time
+                                            
+                                            /* Make Ajax Call here to get new Y value*/
+                                            y = Math.round(Math.random() * 1500);
+                                        series.addPoint([x, y], true, true);
+                                    }, 60*60*1000);
+                                }
+                            }
+                        },
+
+                        rangeSelector: {
+                            buttons: [{
+                                count: 1,
+                                type: 'day',
+                                text: '1d'
+                            }, {
+                                count: 5,
+                                type: 'day',
+                                text: '5d'
+                            }, {
+                                type: 'all',
+                                text: 'All'
+                            }],
+                            inputEnabled: true,
+                            selected: 0
                         },
 
                         title : {
@@ -33,7 +66,9 @@
                         series : [{
                             type: 'area',
                             name : 'Silver AUD', //response.Series[0].Title,
-                            data: response, //.Series[0].RawData,
+                            pointInterval: 60 * 60 * 1000, //1 hour
+                            pointStart: response.PointStart, 
+                            data: response.Series[0].Points,
                             gapSize: 5,
                             tooltip: {
                                 valueDecimals: 2
@@ -58,9 +93,6 @@
 		</script>
 	</head>
 	<body style="background-color: #343434">
-        <script type="text/javascript" src="/js/highstock.js"></script>
-        <script type="text/javascript" src="/js/modules/exporting.js"></script>
-        <script src="/js/themes/dark-unica-silver.js"></script>
         <div id="container" style="min-height: 1024px; min-width: 310px"></div>
 	</body>
 </html>
