@@ -24,7 +24,7 @@
             $(document).ready(function() {
                 var _to = Math.floor(Date.now() / 1000);
                 var _from = _to - 2592000;
-                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/stock?seriestype=askhigh&currencyId=2&commodityId=1&from=' + _from + '&to=' + _to, function (response) {
+                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=1&from=' + _from + '&to=' + _to, function (response) {
                     //$.getJSON("goldarea.json", function (response) {
                     // create the chart
                     $('#container').highcharts('StockChart', {
