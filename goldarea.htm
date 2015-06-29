@@ -35,7 +35,6 @@
                                     // set up the updating of the chart each second
                                     var series = this.series[0];
                                     setInterval(function () {
-                                        var x = (new Date()).getTime(), // current time
                                         var _to1 = Math.floor(Date.now() / 1000);
                                         var _from1 = to1 - 60;
                                         $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=1&from='+from1 +'&to=' + to1, function(resp1){
