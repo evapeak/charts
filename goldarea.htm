@@ -22,9 +22,9 @@
 		</style>
         <script type="text/javascript">
             $(document).ready(function() {
-                var milliseconds = Math.floor(Date.now() / 1000);
-                var from = milliseconds - 2592000;
-                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/stock?seriestype=askhigh&currencyId=2&commodityId=1&from=' + from + '&to=' + milliseconds, function (response) {
+                var _to = Math.floor(Date.now() / 1000);
+                var _from = _to - 2592000;
+                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/stock?seriestype=askhigh&currencyId=2&commodityId=1&from=' + _from + '&to=' + _to, function (response) {
                     //$.getJSON("goldarea.json", function (response) {
                     // create the chart
                     $('#container').highcharts('StockChart', {
@@ -36,11 +36,19 @@
                                     var series = this.series[0];
                                     setInterval(function () {
                                         var x = (new Date()).getTime(), // current time
-                                            
-                                            /* Make Ajax Call here to get new Y value*/
-                                            y = Math.round(Math.random() * 1500);
-                                        series.addPoint([x, y], true, true);
-                                    }, 60*60*1000);
+                                        var _to1 = Math.floor(Date.now() / 1000);
+                                        var _from1 = to1 - 60;
+                                        $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=1&from='+from1 +'&to=' + to1, function(resp1){
+                                                if(resp1.length>0){
+                                                    /* Make Ajax Call here to get new Y value*/
+                                                    x = resp1[0][0];
+                                                    y = resp1[0][1];
+                                                    series.addPoint([x, y], true, true);
+
+                                                }
+                                        });
+                                        
+                                    }, 60*1000);
                                 }
                             }
                         },
