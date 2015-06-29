@@ -12,13 +12,16 @@
 		</style>
 		<script type="text/javascript">
             $(document).ready(function() {
-                var milliseconds = Math.floor(Date.now() / 1000);
-                var from = milliseconds - 2592000;
-                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/stock?seriestype=askhigh&currencyId=2&commodityId=2&from=' + from + '&to=' + milliseconds, function (response) {
+                var _to = Math.floor(Date.now() / 1000);
+                var _from = _to - 2592000;
+                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=2&from=' + _from + '&to=' + _to, function (response) {
                 //$.getJSON("silverarea.json", function (response) {
                     // create the chart
-                    $('#container').highcharts('StockChart', {
+                    $.each(response, function(i, r){
+                        r[0] = r[0]*1000;
+                    }); 
 
+                    $('#container').highcharts('StockChart', {
                         chart : {
                             events : {
                                 load : function () {
@@ -26,12 +29,20 @@
                                     // set up the updating of the chart each second
                                     var series = this.series[0];
                                     setInterval(function () {
-                                        var x = (new Date()).getTime(), // current time
-                                            
-                                            /* Make Ajax Call here to get new Y value*/
-                                            y = Math.round(Math.random() * 1500);
-                                        series.addPoint([x, y], true, true);
-                                    }, 60*60*1000);
+                                        var _to1 = Math.floor(Date.now() / 1000);
+                                        var _from1 = _to1 - 60;
+                                        $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=2&from='+_from1 +'&to=' + _to1, function(resp1){
+                                                if(resp1.length>0){
+                                                    // Make Ajax Call here to get new Y value
+                                                    console.log('updating');
+                                                    console.log(resp1)
+                                                    x = resp1[0][0]*1000;
+                                                    y = resp1[0][1];
+                                                    series.addPoint([x, y], true, true);
+
+                                                }
+                                        });
+                                    }, 5*60*1000);
                                 }
                             }
                         },
@@ -66,9 +77,7 @@
                         series : [{
                             type: 'area',
                             name : 'Silver AUD', //response.Series[0].Title,
-                            pointInterval: 60 * 60 * 1000, //1 hour
-                            pointStart: response.PointStart, 
-                            data: response.Series[0].Points,
+                            data: response,
                             gapSize: 5,
                             tooltip: {
                                 valueDecimals: 2
