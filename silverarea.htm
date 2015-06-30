@@ -14,8 +14,13 @@
             $(document).ready(function() {
                 var _to = Math.floor(Date.now() / 1000);
                 var _from = _to - 2592000;
-                $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=2&from=' + _from + '&to=' + _to, function (response) {
-                //$.getJSON("silverarea.json", function (response) {
+                var _url = 'https://dev-mv-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=2&from=' + _from + '&to=' + _to;
+                console.log(_url);
+
+                $.ajax({
+                    type: 'GET',
+                    url: _url
+                }).done(function (response) {
                     // create the chart
                     $.each(response, function(i, r){
                         r[0] = r[0]*1000;
@@ -30,17 +35,22 @@
                                     var series = this.series[0];
                                     setInterval(function () {
                                         var _to1 = Math.floor(Date.now() / 1000);
-                                        var _from1 = _to1 - 60;
-                                        $.getJSON('https://dev-mv-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=2&from='+_from1 +'&to=' + _to1, function(resp1){
-                                                if(resp1.length>0){
-                                                    // Make Ajax Call here to get new Y value
-                                                    console.log('updating');
-                                                    console.log(resp1)
-                                                    x = resp1[0][0]*1000;
-                                                    y = resp1[0][1];
-                                                    series.addPoint([x, y], true, true);
-
-                                                }
+                                        var _from1 = _to1 - 5*60;
+                                        var _url1 = 'https://dev-mv-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=2&from='+_from1 +'&to=' + _to1;
+                                        $.ajax({
+                                            type: 'GET',
+                                            url: _url1
+                                        }).done(function (resp1) {
+                                            if(resp1.length>0){
+                                                // Make Ajax Call here to get new Y value
+                                                console.log('updating');
+                                                console.log(resp1)
+                                                x = resp1[0][0]*1000;
+                                                y = resp1[0][1];
+                                                series.addPoint([x, y], true, true);
+                                            }
+                                        }).error(function (_jqXHR, _textStatus, _errorThrown) {
+                                            console.log(_jqXHR.responseText || _textStatus);
                                         });
                                     }, 5*60*1000);
                                 }
@@ -97,6 +107,8 @@
                             threshold: null
                         }]
                     });
+                }).error(function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR.responseText || textStatus);
                 });
             });
 		</script>
