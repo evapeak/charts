@@ -29,56 +29,14 @@
                     type: 'GET',
                     url: _url
                 }).done(function (response) {
-                    //$.getJSON("goldarea.json", function (response) {
-                    // create the chart0
                     if(response.length>0){
-                        /*var points = $.map( response, function( dat, i ) {
-                          return dat[1];
-                        });*/
                         $.each(response, function(i, r){
                             r[0] = r[0]*1000;
                         });
 
                         var resp = response;
                         var chart = $('#container').highcharts('StockChart', {
-                            chart : {
-                                events : {
-                                    load : function () {
-
-                                        // set up the updating of the chart each second
-                                        var series = this.series[0];
-                                        /*console.log(resp.length);
-                                        $.each(resp, function(i, dat){
-                                            x = dat[0]*1000;
-                                            y = dat[1];
-                                            console.log( x + '=>' + y);
-                                            series.addPoint([x, y], true, true);
-                                        });*/
-
-                                        setInterval(function () {
-                                            var _to1 = Math.floor(Date.now() / 1000);
-                                            var _from1 = _to1 - 5*60;
-                                            var _url1 = 'https://dev-mv-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=1&from='+_from1 +'&to=' + _to1;
-                                            $.ajax({
-                                                type: 'GET',
-                                                url: _url1
-                                            }).done(function (resp1) {
-                                                if(resp1.length>0){
-                                                    // Make Ajax Call here to get new Y value
-                                                    console.log('updating');
-                                                    console.log(resp1)
-                                                    x = resp1[0][0]*1000;
-                                                    y = resp1[0][1];
-                                                    series.addPoint([x, y], true, true);
-                                                }
-                                            }).error(function (_jqXHR, _textStatus, _errorThrown) {
-                                                console.log(_jqXHR.responseText || _textStatus);
-                                            });
-                                        }, 5*60*1000);
-                                    }
-                                }
-                            },
-
+                            
                             rangeSelector: {
                                 buttons: [{
                                     count: 1,
@@ -100,12 +58,72 @@
                                 text : 'BULLIONMARK SPOT GOLD (AUD)'//response.Title
                             },
 
-                            //plotOptions: {
-                            //    series: {
-                            //        pointStart: response.PointStart,
-                            //        pointIntervalUnit: 'hour'
-                            //    }
-                            //},
+                            series : [{
+                                type: 'area',
+                                name : 'BULLIONMARK SPOT GOLD (AUD)', //response.Series[0].Title,
+                                data: response,
+                                gapSize: 5,
+                                tooltip: {
+                                    valueDecimals: 2
+                                },
+                                fillColor: {
+                                    linearGradient: {
+                                        x1: 0,
+                                        y1: 0,
+                                        x2: 0,
+                                        y2: 1
+                                    },
+                                    stops: [
+                                        [0, Highcharts.getOptions().colors[0]],
+                                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                    ]
+                                },
+                                threshold: null
+                            }]
+                        });
+                    }
+					setInterval(redrawcharts, 5*60*1000);
+                }).error(function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR.responseText || textStatus);
+                });
+            });
+
+			function redrawcharts(){
+				var _to = Math.floor(Date.now() / 1000);
+                var _from = _to - 2592000;
+                var _url = 'https://dev-mv-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=1&from=' + _from + '&to=' + _to;
+                console.log(_url);
+                $.ajax({
+                    type: 'GET',
+                    url: _url
+                }).done(function (response) {
+                    if(response.length>0){
+                        $.each(response, function(i, r){
+                            r[0] = r[0]*1000;
+                        });
+
+                        var resp = response;
+                        var chart = $('#container').highcharts('StockChart', {
+                            rangeSelector: {
+                                buttons: [{
+                                    count: 1,
+                                    type: 'day',
+                                    text: '1d'
+                                }, {
+                                    count: 5,
+                                    type: 'day',
+                                    text: '5d'
+                                }, {
+                                    type: 'all',
+                                    text: 'All'
+                                }],
+                                inputEnabled: true,
+                                selected: 0
+                            },
+
+                            title : {
+                                text : 'BULLIONMARK SPOT GOLD (AUD)'//response.Title
+                            },
 
                             series : [{
                                 type: 'area',
@@ -134,7 +152,7 @@
                 }).error(function (jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR.responseText || textStatus);
                 });
-            });
+			}
 		</script>
 	</head>
     <body style="background-color: #343434">
