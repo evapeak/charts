@@ -27,7 +27,7 @@
                     var from = Math.floor(Date.now() / 1000) - 7 * 24 * 60 * 60; //1 week in seconds
                     var to = Math.floor(Date.now() / 1000);
 
-                    $.getJSON("https://dev-mv-api.azurewebsites.net/api/v1/series?commodityid=5&currencyid=2&from=" + from + "&to=" + to, function(json){
+                    $.getJSON("https://dev-mv-api.azurewebsites.net/api/v1/series?provider=2&commodityid=5&currencyid=2&from=" + from + "&to=" + to, function(json){
                         $('#container').highcharts({
                             chart: {
                                 zoomType: 'x',
