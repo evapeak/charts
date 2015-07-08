@@ -19,65 +19,6 @@
         <script type="text/javascript" src="/js/highcharts.js"></script>
         <script type="text/javascript" src="/js/modules/exporting.js"></script>
         <script type="text/javascript">
-
-            function RenderChart (data) {
-                $('#container').highcharts({
-                    chart: {
-                        zoomType: 'x',
-                        height: 800
-                    },
-                    title: {
-                        text: data.Title
-                    },
-                    subtitle: {
-                        text: document.ontouchstart === undefined ?
-                                '' :
-                                ''
-                    },
-                    xAxis: {
-                        type: 'datetime'//,
-                        //minRange: 3600000 //14 * 24 * 3600000 // fourteen days
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Exchange rate'
-                        },
-                        type: 'linear'
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    plotOptions: {
-                        area: {
-                            fillColor: {
-                                linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
-                                stops: [
-                                    [0, Highcharts.getOptions().colors[0]],
-                                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                                ]
-                            },
-                            marker: {
-                                radius: 2
-                            },
-                            lineWidth: 1,
-                            states: {
-                                hover: {
-                                    lineWidth: 1
-                                }
-                            },
-                            threshold: null
-                        },
-                        series: {
-                            pointStart: data.PointStart,
-                            pointInterval: 3600 * 1000 //,
-                            //pointIntervalUnit: 'minute'
-                        }
-                    },
-                    series: data.Series
-
-                });
-            }
-            
             $(document).ready(
 
                 //Begin when page is ready
@@ -86,15 +27,62 @@
                     var from = Math.floor(Date.now() / 1000) - 7 * 24 * 60 * 60; //1 week in seconds
                     var to = Math.floor(Date.now() / 1000);
 
-                    //First load
-                    //Load(to, from);
-
-                    var jsonResponse;
-
                     $.getJSON("https://dev-mv-api.azurewebsites.net/api/v1/series?commodityid=5&currencyid=2&from=" + from + "&to=" + to, function(json){
-                        jsonResponse = json;
+                        $('#container').highcharts({
+                            chart: {
+                                zoomType: 'x',
+                                height: 800
+                            },
+                            title: {
+                                text: json.data.Title
+                            },
+                            subtitle: {
+                                text: document.ontouchstart === undefined ?
+                                        '' :
+                                        ''
+                            },
+                            xAxis: {
+                                type: 'datetime'//,
+                                //minRange: 3600000 //14 * 24 * 3600000 // fourteen days
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'Exchange rate'
+                                },
+                                type: 'linear'
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            plotOptions: {
+                                area: {
+                                    fillColor: {
+                                        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
+                                        stops: [
+                                            [0, Highcharts.getOptions().colors[0]],
+                                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                        ]
+                                    },
+                                    marker: {
+                                        radius: 2
+                                    },
+                                    lineWidth: 1,
+                                    states: {
+                                        hover: {
+                                            lineWidth: 1
+                                        }
+                                    },
+                                    threshold: null
+                                },
+                                series: {
+                                    pointStart: data.PointStart,
+                                    pointInterval: 3600 * 1000 //,
+                                    //pointIntervalUnit: 'minute'
+                                }
+                            },
+                            series: data.Series
 
-                        RenderChart(jsonResponse);
+                        });
                     });
 
                 }
