@@ -68,10 +68,15 @@
                                                 if(resp1){
                                                     // Make Ajax Call here to get new Y value
                                                     console.log('updating');
-                                                    console.log(resp1)
-                                                    x = resp1.Timestamp * 1000; //resp1[0][0]*1000;
-                                                    y = resp1.Current; //resp1[0][1];
-                                                    series.addPoint([x, y], true, true);
+                                                    console.log(resp1);
+                                                    
+                                                    var x2 = parseInt(resp1.Timestamp) * 1000;
+                                                    var y2 = parseFloat(resp1.Current);
+
+                                                    //var x = (new Date()).getTime(), // current time
+                                                    //y = Math.round(Math.random() * 100);
+
+                                                    series.addPoint([x2, y2], true, true);
                                                 }
                                             }).error(function (_jqXHR, _textStatus, _errorThrown) {
                                                 console.log(_jqXHR.responseText || _textStatus);
