@@ -48,6 +48,30 @@
                             },
                             threshold: null
                         }]
+                        events: {
+                            load: function () {
+
+                                // set up the updating of the chart each second
+                                var series = this.series[0];
+                                setInterval(function () {
+
+                                    var _update_url = 'http://api.bullionmark.com/v1/ask?currencyId=2&commodityId=1';
+
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: _update_url
+                                    }).done(function (resp1) {
+
+                                        var x2 = parseInt(resp1.Timestamp) * 1000;
+                                        var y2 = parseFloat(resp1.Current);
+
+                                        series.addPoint([x2, y2], true, true);
+
+                                    });
+
+                                }, 5000);
+                            }
+                        }
                     });
                 });
             });
