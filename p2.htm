@@ -61,7 +61,9 @@
                                         type: 'GET',
                                         url: _update_url
                                     }).done(function (resp1) {
-
+                                        
+                                        console.log(resp1);
+                                        
                                         var x2 = parseInt(resp1.Timestamp) * 1000;
                                         var y2 = parseFloat(resp1.Current);
 
