@@ -49,7 +49,6 @@
 
                                         // set up the updating of the chart each second
                                         var series = this.series[0];
-                                        
                                         /*console.log(resp.length);
                                         $.each(resp, function(i, dat){
                                             x = dat[0]*1000;
@@ -59,26 +58,22 @@
                                         });*/
 
                                         setInterval(function () {
-                                            var _to1 = Math.floor(Date.now() / 1000);
-                                            var _from1 = _to1 - 30; //5*60
-                                            var _update_url = 'http://api.bullionmark.com/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=1&from='+_from1 +'&to=' + _to1;
-                                            
+                                            //var _to1 = Math.floor(Date.now() / 1000);
+                                            //var _from1 = _to1 - 30; //5*60
+                                            var _spotUrl = 'http://api.bullionmark.com/v1/ask?currencyId=2&commodityId=1';
                                             $.ajax({
                                                 type: 'GET',
-                                                url: _update_url
+                                                url: _url1
                                             }).done(function (resp1) {
-                                                if(resp1.length > 0){
-                                                    
+                                                if(resp1.length>0){
                                                     // Make Ajax Call here to get new Y value
                                                     console.log('updating');
                                                     console.log(resp1)
-                                                    
-                                                    x = resp1[0][0]*1000;
-                                                    y = resp1[0][1];
+                                                    x = resp1.Timestamp * 1000; //resp1[0][0]*1000;
+                                                    y = resp1.Current; //resp1[0][1];
                                                     series.addPoint([x, y], true, true);
                                                 }
                                             }).error(function (_jqXHR, _textStatus, _errorThrown) {
-                                                console.log("error");
                                                 console.log(_jqXHR.responseText || _textStatus);
                                             });
                                         }, 30*1000); //5*60*1000
