@@ -11,7 +11,7 @@
             $(document).ready(function() {
                 var _to = Math.floor(Date.now() / 1000);
                 var _from = _to - 2592000;
-                var _url = 'https://dev-bmk-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=1&from=' + _from + '&to=' + _to + '&maxrows=1000&scale=1000'; 
+                var _url = 'https://dev-mv-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=1&from=' + _from + '&to=' + _to + '&maxrows=1000&scale=1000'; 
                 $.getJSON(_url, function (response) {
 
                     // create the chart
