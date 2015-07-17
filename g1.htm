@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>BULLIONMARK</title>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<style type="text/css">
+            ${demo.css}
+		</style>
+		<script type="text/javascript">
+            $(document).ready(function() {
+                var _to = Math.floor(Date.now() / 1000);
+                var _from = _to - 2592000;
+                var _url = 'https://dev-bmk-api.azurewebsites.net/api/v1/rawdata?seriestype=askhigh&currencyId=2&commodityId=1&from=' + _from + '&to=' + _to + '&maxrows=1000&scale=1000'; 
+                $.getJSON(_url, function (response) {
+
+                    // create the chart
+                    $('#container').highcharts('StockChart', {
+
+                        chart : {
+                            events: {
+                            load: function () {
+
+                                // set up the updating of the chart each second
+                                var series = this.series[0];
+                                setInterval(function () {
+
+                                    var _update_url = 'http://api.bullionmark.com/v1/ask?currencyId=2&commodityId=1';
+
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: _update_url
+                                    }).done(function (resp1) {
+                                        
+                                        console.log(resp1);
+                                        
+                                        if (resp1)
+                                        {
+                                            var x2 = parseInt(resp1.Timestamp) * 1000;
+                                            var y2 = parseFloat(resp1.Current);
+
+                                            series.addPoint([x2, y2], true, true);
+                                        }
+
+                                    });
+
+                                }, 5000);
+                            },
+                        }
+                    },
+                        
+                    rangeSelector : {
+                        selected : 1
+                    },
+
+                    title : {
+                        text : response.Title
+                    },
+
+                    series : [{
+                        type: 'area',
+                        type: 'area',
+                        name : 'BULLIONMARK SPOT (AUD)', //response.Series[0].Title,
+                        data: response,
+                        gapSize: 5,
+                        tooltip: {
+                            valueDecimals: 2
+                        },
+                        threshold: null
+                    }]
+                        
+                        
+                    });
+                });
+            });
+		</script>
+	</head>
+	<body style="background-color: #343434">
+        <script type="text/javascript" src="../js/highstock.js"></script>
+        <script type="text/javascript" src="../js/modules/exporting.js"></script>
+        <script src="/js/themes/dark-unica-bmk.js"></script>
+        <div id="container" style="min-height: 1024px; min-width: 310px"></div>
+	</body>
+</html>
